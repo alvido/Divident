@@ -1,0 +1,23 @@
+.ready {
+    background: var(--color-accent);
+    padding-block: clamp(3rem, 2.927rem + 0.32vw, 3.25rem);
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 32px 40px;
+
+        @include mobile {
+            flex-direction: column;
+        }
+    }
+
+    & h2 {
+        color: var(--color-light);
+
+        @include phone {
+            max-width: 320px;
+        }
+    }
+}

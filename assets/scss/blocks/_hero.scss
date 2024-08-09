@@ -1,0 +1,31 @@
+.hero {
+    padding: 0;
+
+    & h1 {
+        text-align: center;
+        margin-top: clamp(2rem, 1.565rem + 1.94vw, 3.5rem);
+    }
+
+    & p {
+        max-width: 800px;
+        margin: 0;
+        margin-top: clamp(1rem, 0.71rem + 1.29vw, 2rem);
+        margin-inline: auto;
+        text-align: center;
+    }
+
+    & img {
+        margin: 80px auto 0;
+        border-radius: 16px;
+
+        @include tablet {
+            margin: 60px auto 0;
+        }
+
+        @include mobile {
+            margin: 40px auto 0;
+            min-height: 330px;
+            object-fit: cover;
+        }
+    }
+}

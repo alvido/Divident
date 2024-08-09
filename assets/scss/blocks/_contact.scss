@@ -1,0 +1,76 @@
+.contact {
+
+    padding-top: clamp(3rem, 2.419rem + 2.58vw, 5rem);
+    padding-bottom: clamp(3rem, 0.242rem + 12.26vw, 12.5rem);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: clamp(3rem, 2.419rem + 2.58vw, 5rem);
+
+    @include mobile {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        width: 100%;
+        max-width: 370px;
+        padding: clamp(1rem, 0.855rem + 0.65vw, 1.5rem);
+        border-radius: 8px;
+        border: 1px solid rgba(231, 233, 237, 1);
+        box-shadow: 0px 34px 33px -23px rgba(22, 28, 45, 0.13);
+
+        & label {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+    }
+
+    &__info {
+        padding: 48px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+
+        @include mobile {
+            padding: 0;
+            align-items: center;
+        }
+    }
+
+    &__links {
+
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        & h4 {
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        a {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 20px;
+            line-height: 32px;
+
+            &:last-child {
+                margin: 0;
+            }
+
+            @include hover {
+                color: var(--color-accent);
+            }
+        }
+    }
+}

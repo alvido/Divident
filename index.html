@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Devident</title>
+    <link rel="icon" type="image/png" href="assets/images/calculator.svg">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__inner container">
+            <a href="/" class="header__logo logo">
+                <img class="logo__image" src="assets/images/header/logo.svg" alt="logo">
+            </a>
+            <nav class="header__nav navigation">
+                <ul class="navigation__list">
+                    <li class="navigation__item"><a href="/" class="navigation__link">Calculator</a></li>
+                    <li class="navigation__item"><a href="/about.html" class="navigation__link">About</a></li>
+                    <li class="navigation__item"><a href="/contact.html" class="navigation__link">Contact</a></li>
+                    <li class="navigation__item"><a href="/blog.html" class="navigation__link">Blog</a></li>
+                </ul>
+            </nav>
+            <button class="header__burger burger" id="burgerButton">
+                <span>Menu</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="hero">
+            <div class="container">
+                <h1>Dividend <span>Calculator</span></h1>
+                <p>Et nisi repellat. A nihil quia voluptas repudiandae deleniti. Neque et sunt repellat dolor natus.
+                    Consequatur consectetur asperiores aut neque dolores dolores.</p>
+            </div>
+        </section>
+
+        <section class="calculator">
+            <div class="container">
+                <div class="calculator__investment">
+                    <h2>After <span>10</span> years, your investment will be worth</h2>
+                    <strong class="calculator__counter">
+                        <span class="integer" id="integer">0</span>
+                        <span class="fractional" id="fractional">.0</span>
+                    </strong>
+                </div>
+                <div class="calculator__inner">
+                    <div class="calculator__values">
+                        <div class="summary">
+                            <div class="shadow__block total-return">
+                                <h3>Total Return %</h3>
+                                <p class="count" id="totalReturn">0%</p>
+                            </div>
+                            <div class="shadow__block average-yearly-return">
+                                <h3>Average Yearly Return %</h3>
+                                <p class="count" id="averageYearlyReturn">0%</p>
+                            </div>
+                        </div>
+                        <div class="breakdown">
+                            <div class="shadow__block">
+                                <h3>Principal</h3>
+                                <span class="count" id="principalBreakdown">0.00</span>
+                            </div>
+                            <div class="shadow__block">
+                                <h3>Contributions</h3>
+                                <span class="count" id="contributionsBreakdown">0.00</span>
+                            </div>
+                            <div class="shadow__block">
+                                <h3>Dividends</h3>
+                                <span class="count" id="dividendsBreakdown">0.00</span>
+                            </div>
+                            <div class="shadow__block">
+                                <h3>Growth</h3>
+                                <span class="count" id="growthBreakdown">0.00</span>
+                            </div>
+                        </div>
+
+                        <div class="chart">
+                            <h2>Cumulative Return Chart</h2>
+                            <canvas id="returnChart"></canvas>
+                        </div>
+
+                        <div class="monthly-income">
+                            <h2>Average Monthly Income</h2>
+                            <canvas id="incomeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="calculator__form">
+                        <div class="calculator__start">
+                            <h4>
+                                <img src="assets/images/calculator.svg" alt="">
+                                start calculating here
+                            </h4>
+                            <button id="showCalculator">
+                                Show Calculator
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7.5 10L12.5 15" stroke="#161C2D" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M12.5 15L17.5 10" stroke="#161C2D" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="shadow__block">
+                            <label for="principal">Starting Principal</label>
+                            <input class="calculator__input" type="number" id="principal" value="1000">
+                            <p class="info">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M7 6.33333V9.66667M7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7C13 10.3137 10.3137 13 7 13ZM7.0332 4.33333V4.4L6.9668 4.40013V4.33333H7.0332Z"
+                                        stroke="#161C2D" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                The amount to be invested initially
+                            </p>
+                            <span class="error-message"></span>
+                        </div>
+
+                        <div class="shadow__block">
+                            <div class="wrapper">
+                                <label for="annualContribution">Annual Contribution</label>
+                                <input class="calculator__input" type="number" id="annualContribution" value="100">
+                                <p class="info">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7 6.33333V9.66667M7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7C13 10.3137 10.3137 13 7 13ZM7.0332 4.33333V4.4L6.9668 4.40013V4.33333H7.0332Z"
+                                            stroke="#161C2D" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    Amount of additional investments, per year
+                                </p>
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="wrapper">
+                                <label for="contributionFrequency">Contribution Every</label>
+                                <select id="contributionFrequency">
+                                    <option value="12" selected>Month</option>
+                                    <option value="4">Quarter</option>
+                                    <option value="2">Six Months</option>
+                                    <option value="1">Year</option>
+                                </select>
+                                <p class="info">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7 6.33333V9.66667M7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7C13 10.3137 10.3137 13 7 13ZM7.0332 4.33333V4.4L6.9668 4.40013V4.33333H7.0332Z"
+                                            stroke="#161C2D" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    The frequency that contributions are made
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="shadow__block">
+                            <div class="wrapper">
+                                <label for="dividendYield">Annual Dividend Yield</label>
+                                <input class="calculator__input" type="number" id="dividendYield" value="5">
+                                <p class="info">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7 6.33333V9.66667M7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7C13 10.3137 10.3137 13 7 13ZM7.0332 4.33333V4.4L6.9668 4.40013V4.33333H7.0332Z"
+                                            stroke="#161C2D" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    The current dividend yield of your investment portfolio
+                                </p>
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="wrapper"><label for="dividendTaxRate">Dividend Tax Rate</label>
+                                <input class="calculator__input" type="number" id="dividendTaxRate" value="1">
+                                <p class="info">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7 6.33333V9.66667M7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7C13 10.3137 10.3137 13 7 13ZM7.0332 4.33333V4.4L6.9668 4.40013V4.33333H7.0332Z"
+                                            stroke="#161C2D" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    The rate at which your dividends will be taxed
+                                </p>
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="wrapper">
+                                <label for="dividendFrequency">
+                                    Dividend Frequency
+                                </label>
+                                <select id="dividendFrequency">
+                                    <option value="12" selected>Month</option>
+                                    <option value="4">Quarter</option>
+                                    <option value="2">Six Months</option>
+                                    <option value="1">Year</option>
+                                </select>
+                                <p class="info">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7 6.33333V9.66667M7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7C13 10.3137 10.3137 13 7 13ZM7.0332 4.33333V4.4L6.9668 4.40013V4.33333H7.0332Z"
+                                            stroke="#161C2D" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    Frequency of dividend payments
+                                </p>
+                            </div>
+                            <div class="wrapper">
+                                <label class="custom-checkbox" for="reinvestDividends">
+                                    Dividend reinvestment
+                                    <input type="checkbox" id="reinvestDividends" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <p class="info">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7 6.33333V9.66667M7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7C13 10.3137 10.3137 13 7 13ZM7.0332 4.33333V4.4L6.9668 4.40013V4.33333H7.0332Z"
+                                            stroke="#161C2D" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    Whether the dividends you receive will be reinvested
+                                </p>
+                            </div>
+                        </div>
+                        <div class="shadow__block">
+
+                            <label for="stockPriceAppreciation">Expected annual stock price appreciation</label>
+                            <input class="calculator__input" type="number" id="stockPriceAppreciation" value="1" max="100">
+                            <p class="info">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M7 6.33333V9.66667M7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7C13 10.3137 10.3137 13 7 13ZM7.0332 4.33333V4.4L6.9668 4.40013V4.33333H7.0332Z"
+                                        stroke="#161C2D" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                Expected growth in the price of your dividend portfolio
+                            </p>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="shadow__block">
+
+                            <label for="calculationYears">Years Invested</label>
+                            <input class="calculator__input" type="number" id="calculationYears" value="10">
+                            <p class="info">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M7 6.33333V9.66667M7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7C13 10.3137 10.3137 13 7 13ZM7.0332 4.33333V4.4L6.9668 4.40013V4.33333H7.0332Z"
+                                        stroke="#161C2D" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                Investment period in years
+                            </p>
+                            <span class="error-message"></span>
+                        </div>
+                    </div>
+
+                    <div class="calculator__banner">
+                        <img src="assets/images/author-big.png" alt="">
+                    </div>
+                </div>
+                <div class="calculator__table">
+                    <h2>Your dividends every year</h2>
+                    <div id="breakdownTable">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <article class="article">
+            <div class="container-small">
+                <h2>How It Works</h2>
+                <div class="article__content">
+                    <img src="assets/images/articles/IMG.png" alt="">
+                    <p>Non enim debitis impedit nihil. Consequatur nisi quasi voluptatem minima rerum sit ut. Laborum
+                        odit vitae architecto sunt nihil reiciendis omnis. Debitis molestias quos quia et minus iusto
+                        nobis. Nisi nostrum sed occaecati. Delectus et quia eos soluta.</p>
+                    <h4>Rerum similique consequuntur similique voluptatem </h4>
+                    <ol>
+                        <li>
+                            Doloribus voluptates adipisci et sed omnis eum.
+                        </li>
+                        <li>
+                            Corporis et adipisci laudantium eveniet rerum.
+                        </li>
+                        <li>
+                            Praesentium veritatis aut ut quia cupiditate et.
+                        </li>
+                        <li>
+                            Odio non laborum sit odio officiis voluptates autem.
+                        </li>
+                        <li>
+                            Dolores asperiores nisi quibusdam eaque est quia veniam.
+                        </li>
+                        <li>
+                            Occaecati explicabo rerum amet aut.
+                        </li>
+                    </ol>
+                    <h4>Laborum molestiae id eaque velit </h4>
+                    <p>Occaecati nihil esse voluptatum totam odit reprehenderit qui facere quis. Consectetur tenetur ut
+                        id consequatur quidem rerum rem temporibus ea. Quibusdam et voluptates repudiandae et animi
+                        sapiente voluptas.</p>
+                    <img src="assets/images/articles/IMG.png" alt="">
+                    <p>Quae similique iusto ea qui sunt. Numquam consequuntur aliquid aut sit omnis. Quas ipsum neque ea
+                        ad occaecati molestiae nihil. Rerum accusamus non id ipsum itaque voluptatem accusantium.</p>
+                    <p>Officia voluptatum enim quasi cum et omnis. Hic aliquid laborum beatae vel veritatis perferendis
+                        voluptatem. Id quibusdam qui consequuntur voluptatem et ea blanditiis iure nobis.</p>
+                    <blockquote>
+                        <h4>DISCLAIMER</h4>
+                        <p>Qui voluptas cupiditate consequatur ab. Officia aut qui inventore consectetur qui. Nihil ea a
+                            ullam id. <br>Voluptatum quos assumenda sed natus eius quam exercitationem omnis placeat.
+                        </p>
+                        <p>Saepe ratione deleniti sit nostrum. Maxime dolor iure asperiores velit quo.</p>
+                        <p>Nulla minus necessitatibus voluptas.</p>
+                    </blockquote>
+                    <p>Animi eos provident laudantium omnis in sunt reiciendis possimus quos. Mollitia laudantium
+                        voluptate qui iste quam quibusdam reiciendis dolorem aut. Dolores voluptatum est. Delectus
+                        deserunt eaque tempore vel error voluptatum vel. Et perferendis aperiam laboriosam veritatis
+                        ducimus omnis.</p>
+                    <h4>You can't compress the capacitor without synthesizing the auxiliary SDD interface!</h4>
+                    <p>Quibusdam occaecati cum ut quaerat suscipit autem quia quo dignissimos.</p>
+                    <ul>
+                        <li>
+                            quo doloribus blanditiis
+                        </li>
+                        <li>
+                            qui perferendis iste et
+                        </li>
+                        <li>
+                            eveniet cumque aliquid
+
+                        </li>
+                        <li>
+                            minus perspiciatis reiciendis
+                        </li>
+                        <li>
+                            magni nemo
+
+                        </li>
+                    </ul>
+                    <p>Quos saepe eveniet ut debitis omnis laboriosam nam. Iste odit facere repudiandae est recusandae
+                        excepturi ipsum vel maiores. Non asperiores totam enim ipsam voluptatem. Illum tempora nihil
+                        velit unde eos et. Ab sequi illo tempore reiciendis.</p>
+                </div>
+            </div>
+        </article>
+        <section class="faq">
+            <div class="faq__inner container">
+                <div class="faq__content">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Try to synthesize the PCI transmitter, maybe it will synthesize the wireless card!</p>
+                    <ul>
+                        <li>
+                            <h3>Decentralized dedicated portal</h3>
+                            <p>You can't transmit the protocol without navigating the bluetooth ADP array!</p>
+                        </li>
+                        <li>
+                            <h3>Universal maximized forecast</h3>
+                            <p>Use the 1080p ADP port, then you can calculate the optical interface!</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="faq__question">
+                    <ul class="faq__list">
+                        <li class="faq__item active">
+                            <h4 class="faq__title">Operative intangible paradigm
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <path d="M6 9L12 15L18 9" stroke="#131344" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </h4>
+                            <p class="faq__text open">
+                                Quae rerum recusandae aliquid iure. Molestiae ab perferendis necessitatibus. Expedita
+                                explicabo omnis repellendus sapiente occaecati tempora ipsum. Illo error at.
+                            </p>
+                        </li>
+                        <li class="faq__item">
+                            <h4 class="faq__title">Mandatory methodical secured line
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <path d="M6 9L12 15L18 9" stroke="#131344" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </h4>
+                            <p class="faq__text">
+                                Quae rerum recusandae aliquid iure. Molestiae ab perferendis necessitatibus. Expedita
+                                explicabo omnis repellendus sapiente occaecati tempora ipsum. Illo error at.
+                            </p>
+                        </li>
+                        <li class="faq__item">
+                            <h4 class="faq__title">Inverse bandwidth-monitored system engine
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <path d="M6 9L12 15L18 9" stroke="#131344" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </h4>
+                            <p class="faq__text">
+                                Quae rerum recusandae aliquid iure. Molestiae ab perferendis necessitatibus. Expedita
+                                explicabo omnis repellendus sapiente occaecati tempora ipsum. Illo error at.
+                            </p>
+                        </li>
+                        <li class="faq__item">
+                            <h4 class="faq__title">Inverse bandwidth-monitored system engine
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <path d="M6 9L12 15L18 9" stroke="#131344" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </h4>
+                            <p class="faq__text">
+                                Quae rerum recusandae aliquid iure. Molestiae ab perferendis necessitatibus. Expedita
+                                explicabo omnis repellendus sapiente occaecati tempora ipsum. Illo error at.
+                            </p>
+                        </li>
+                        <li class="faq__item">
+                            <h4 class="faq__title">Switchable motivating emulation
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <path d="M6 9L12 15L18 9" stroke="#131344" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </h4>
+                            <p class="faq__text">
+                                Quae rerum recusandae aliquid iure. Molestiae ab perferendis necessitatibus. Expedita
+                                explicabo omnis repellendus sapiente occaecati tempora ipsum. Illo error at.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="ready">
+            <div class="ready__inner container">
+                <h2>Ready to get started?</h2>
+                <a class="button button--alt">Start Calculating</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container-small">
+            <div class="footer__inner">
+                <div class="footer__info">
+                    <a href="/" class="header__logo logo">
+                        Dividend <span>Calculator</span>
+                    </a>
+                    <p>
+                        Easy to use dividend calculator. Estimate the dividend and growth yield of your investment in a
+                        few clicks.
+                    </p>
+                </div>
+                <div class="footer__navigation">
+                    <nav>
+                        <h5>Company</h5>
+                        <ul>
+                            <li>
+                                <a href="">Home</a>
+                            </li>
+                            <li>
+                                <a href="">About</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <nav>
+                        <h5>Product</h5>
+                        <ul>
+                            <li>
+                                <a href="">Calculator</a>
+                            </li>
+                            <li>
+                                <a href="">Blog</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <nav>
+                        <h5>Legal</h5>
+                        <ul>
+                            <li>
+                                <a href="">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="">Terms & Conditions</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <nav>
+                        <h5>Contact us</h5>
+                        <ul>
+                            <li>
+                                <a href="mailto:support@mail.com">support@mail.com</a>
+                            </li>
+                            <li>
+                                <a href="tel:+123 1234 56 78 90">+123 1234 56 78 90</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="copy">
+                <p>© 2024 Dividend Calculator. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="assets/js/scripts.js"></script>
+    <!-- <script src="assets/js/calculator.js"></script> -->
+    <script src="assets/js/calc.js"></script>
+</body>
+
+</html>

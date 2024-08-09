@@ -1,0 +1,30 @@
+.header {
+    position: relative;
+    padding-top: 28px;
+
+    @include mobile {
+    background: var(--color-light);
+    padding: 16px 0;
+    }
+
+    &__inner {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: 40px;
+    }
+
+    &__nav {
+
+        
+    }
+
+    &__burger {
+        display: none;
+
+        @include mobile {
+            display: block;
+        }
+    }
+}

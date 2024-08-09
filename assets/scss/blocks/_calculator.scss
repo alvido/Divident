@@ -1,0 +1,289 @@
+.calculator {
+    &__investment {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 32px;
+
+        @include mobile {
+            row-gap: 16px;
+        }
+    }
+
+    &__counter {
+        padding: 12px 24px 12px 24px;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+
+        & .integer {
+            @include fluid-text(64, 40);
+            font-weight: 700;
+            line-height: 1;
+            color: var(--color-accent);
+        }
+
+        & .fractional {
+            color: rgba(22, 28, 45, 1);
+            font-weight: 400;
+        }
+    }
+
+    &__inner {
+        padding-top: clamp(3rem, 2.419rem + 2.58vw, 5rem);
+        display: flex;
+        column-gap: 32px;
+        row-gap: 40px;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        @include desktop {
+            flex-wrap: wrap;
+        }
+
+        @include mobile {
+            flex-direction: column-reverse;
+            align-items: center;
+        }
+    }
+
+    &__values {
+        display: flex;
+        flex-direction: column;
+        max-width: 720px;
+        row-gap: clamp(2.5rem, 2.21rem + 1.29vw, 3.5rem);
+
+        @include desktop {
+            width: 100%;
+            max-width: none;
+        }
+
+        & h2 {
+            width: 100%;
+            margin-bottom: 16px;
+            text-align: start;
+        }
+
+        & h3 {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--color-accent);
+        }
+
+        & .count {
+            font-size: 40px;
+            @include fluid-text(40, 32);
+            font-weight: 700;
+            line-height: 48px;
+        }
+
+        & .shadow__block {
+            width: calc(50% - 12px);
+            gap: 24px;
+
+            @include phone {
+                width: 100%;
+            }
+        }
+
+        & .summary {
+            display: flex;
+            justify-content: space-between;
+            column-gap: 24px;
+            row-gap: 16px;
+
+            @include phone {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        & .breakdown {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+
+            @include phone {
+                flex-direction: column;
+                align-items: center;
+
+                & h2 {
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        max-width: 460px;
+        min-width: 320px;
+        gap: 24px;
+
+        @include desktop {
+            width: calc(100% - 332px);
+            max-width: none;
+        }
+
+        @include mobile {
+            width: 100%;
+        }
+
+        & .shadow__block {
+            gap: 16px;
+
+            @include mobile {
+                display: none;
+                transition: all .3s ease;
+
+                &.--open {
+                    display: flex;
+                    padding: 24px;
+                }
+            }
+
+            &:nth-of-type(3) {
+                gap: 24px;
+            }
+
+            & .wrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+        }
+
+        & .info {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            color: rgba(22, 28, 45, 1);
+
+            & svg {
+                margin-right: 10px;
+                min-width: 14px;
+            }
+        }
+    }
+
+    &__start {
+
+        border: 1px solid rgba(22, 28, 45, 1);
+        border-radius: 16px;
+        opacity: .5;
+
+        @include mobile {
+            border: none;
+            opacity: 1;
+        }
+
+        h4 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 32px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            @include mobile {
+                display: none;
+            }
+
+            & img {
+                margin-right: 10px;
+            }
+        }
+
+        & button {
+            @include reset-button;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            height: 56px;
+
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 32px;
+
+            background: var(--color-ligth);
+            border-radius: 8px;
+            box-shadow: 0px 8px 20px 0px rgba(22, 28, 45, 0.05);
+
+            & svg {
+                transition: all .3s ease;
+            }
+
+            &.--active {
+
+                & svg {
+                    rotate: 180deg;
+                }
+            }
+
+            @include mobile {
+                display: flex;
+            }
+        }
+    }
+
+    &__banner {
+        max-width: 300px;
+        min-width: 300px;
+        height: 600px;
+        background: var(--color-gray-alt);
+    }
+
+    &__table {
+        margin-top: clamp(2.5rem, 2.21rem + 1.29vw, 3.5rem);
+
+
+        & h2 {
+            text-align: left;
+        }
+
+        & #breakdownTable {
+            margin-top: clamp(1.5rem, 1.21rem + 1.29vw, 2.5rem);
+            border-radius: 16px;
+            max-height: 400px;
+            overflow-y: scroll;
+            box-shadow: 0px 8px 20px 0px rgba(22, 28, 45, 0.05);
+        }
+    }
+
+
+    & #returnChart,
+    & #incomeChart {
+        width: 100% !important;
+
+        @include desktop {
+            width: 60% !important;
+            height: auto !important;
+            margin: 0 auto;
+        }
+
+        @include tablet {
+            width: 70% !important;
+        }
+
+        @include mobile {
+            width: 100% !important;
+        }
+    }
+
+    & .chart,
+    & .monthly-income {
+        @include phone {
+            & h2 {
+                text-align: center;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,11 @@
+.article {
+    padding-top: clamp(2rem, 1.565rem + 1.94vw, 3.5rem);
+    padding-bottom: clamp(3rem, 0.242rem + 12.26vw, 12.5rem);
+    
+    &__content {
+
+        & img {
+            margin: clamp(2rem, 1.129rem + 3.87vw, 5rem) auto;
+        }
+    }
+}

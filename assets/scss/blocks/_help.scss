@@ -1,0 +1,42 @@
+.help {
+
+    padding: clamp(3rem, 0.242rem + 12.26vw, 12.5rem) 0;
+
+    &__inner {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 80px;
+
+        @include tablet {
+            gap: 50px;
+        }
+
+        @include mobile {
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        & h2 {
+            text-align: left;
+            max-width: 420px;
+
+            @include mobile {
+                max-width: none;
+            }
+
+            & b {
+                color: var(--color-accent);
+            }
+        }
+
+        & p {
+            max-width: 610px;
+            opacity: .7;
+
+            @include mobile {
+                max-width: none;
+            }
+        }
+    }
+}

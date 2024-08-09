@@ -1,0 +1,121 @@
+.footer {
+
+    &__inner {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: clamp(2.5rem, -6.389rem + 13.89vw, 7.5rem);
+        padding-block: clamp(3rem, 1.694rem + 5.81vw, 7.5rem);
+
+        @include tablet {
+            flex-direction: column;
+        }
+    }
+
+    &__info {
+        max-width: 280px;
+
+        @include tablet {
+            max-width: none;
+        }
+
+        & p {
+            margin-top: 16px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+        }
+    }
+
+    &__navigation {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+
+        @include tablet {
+            width: 100%;
+        }
+
+        @include mobile {
+            flex-wrap: wrap;
+            gap: 40px 32px;
+        }
+
+        & nav {
+            min-width: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+
+            @include mobile {
+                width: calc(50% - 16px);
+                min-width: auto;
+            }
+
+            &:last-child {
+                & li {
+                    font-size: 16px;
+                    font-weight: 600;
+                    line-height: 24px;
+                    color: var(--color-accent);
+
+                    @include hover {
+                        color: var(--color-dark);
+                    }
+                }
+            }
+
+            & h5 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 24px;
+                opacity: .7;
+            }
+
+            & ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+
+                & li {
+
+                    @include hover {
+                        color: var(--color-accent);
+                    }
+                }
+            }
+        }
+    }
+
+    & .copy {
+        padding: 32px 0;
+        border-top: 1px solid rgba(231, 233, 237, 1);
+
+        @include phone {
+            padding: 16px 0;
+        }
+
+        & p {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+
+            @include phone {
+                font-size: 14px;
+                line-height: 20px;
+                text-align: center;
+            }
+        }
+    }
+}
